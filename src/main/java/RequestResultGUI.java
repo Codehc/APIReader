@@ -14,6 +14,7 @@ public class RequestResultGUI {
         initResult();
     }
 
+    // Create the window to show the result of the request
     public void initResult() {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());

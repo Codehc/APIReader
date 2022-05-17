@@ -11,6 +11,7 @@ public class APIHandler {
 
         HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(url));
 
+        // Add headers to HTTP request
         for (String header : headers.keySet()) {
             System.out.println(header);
             System.out.println(headers.get(header));
@@ -20,6 +21,8 @@ public class APIHandler {
         HttpRequest request = requestBuilder.build();
 
         HttpResponse<String> result = null;
+
+        // Unsafe code but for the time being, it works and we don't really want to or care to show errors of this sort to the user
         try {
             result = client.send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {

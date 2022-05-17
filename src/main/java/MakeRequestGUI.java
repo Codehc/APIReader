@@ -8,6 +8,7 @@ public class MakeRequestGUI {
     private JPanel dataPanel;
 
     public MakeRequestGUI(String title) {
+        // Initializes frame (window)
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -23,7 +24,7 @@ public class MakeRequestGUI {
         JLabel endpointLabel = new JLabel("Endpoint URL");
         JTextField endpointTextField = new JTextField(60);
 
-        // Make request
+        // Make request button
         JButton makeRequest = new JButton("Make Request");
 
         // Data panel
@@ -46,24 +47,29 @@ public class MakeRequestGUI {
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.setVisible(true);
 
+        // When the addData button is pressed run the code in the lambda
         addData.addActionListener(e -> {
             if (dataFields.size() == 10) return;
 
             addDataField();
         });
 
+        // When the makeRequest button is pressed make the request
         makeRequest.addActionListener(e -> {
             HashMap<String, String> data = new HashMap<>();
+            // Parse request headers into correct format
             for (JTextField field : dataFields.keySet()) {
                 JTextField dataField = dataFields.get(field);
                 if (field.getText().isEmpty() || dataField.getText().isEmpty()) continue;
                 data.put(field.getText(), dataField.getText());
             }
+
             new RequestResultGUI(endpointTextField.getText(), APIHandler.makeRequest(endpointTextField.getText(), data));
         });
     }
 
     private void addDataField() {
+        // Add data text fields to the right position on the frame
         JPanel dataEntryPanel = new JPanel();
         JTextField header = new JTextField(20);
         JTextField data = new JTextField(20);
